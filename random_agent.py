@@ -16,6 +16,7 @@ class CustomWrapper(BaseWrapper):
 
     def observe(self, agent: AgentID) -> ObsType | None:
         obs = super().observe(agent)
+        print(obs)
         flat_obs = obs.flatten()
         return flat_obs
 
@@ -25,6 +26,10 @@ class CustomPredictFunction:
 
     def __init__(self, env):
         self.env = env
+        self.actions = [2, 2, 4]
+        self.i = 0
 
     def __call__(self, observation, agent, *args, **kwargs):
-        return self.env.action_space(agent).sample()
+        # return self.env.action_space(agent).sample()
+        self.i += 1
+        return self.actions[self.i % len(self.actions)]
